@@ -1,0 +1,225 @@
+<Check@MDCheckbox>:
+    group: 'group'
+    size_hint: None, None
+    size: dp(48), dp(48)
+    allow_no_selection: False
+
+MDScreen:
+    MDBoxLayout:
+        size_hint_y: None
+        height: dp(app.height)
+        size_hint_x: None
+        width: dp(app.width)
+        orientation: 'horizontal'
+
+
+        MDBoxLayout:
+            size_hint_y: None
+            height: dp(app.height)
+            size_hint_x: None
+            width: dp(app.width) * app.scrollPart
+            orientation: 'horizontal'
+
+            FloatLayout:
+                padding: dp(app.width) * app.scrollPart * 0.4 * 0.1
+                size_hint_x: None
+                width: dp(app.width) * app.scrollPart * 0.4
+
+                MDRaisedButton:
+                    text: "Найти техников"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+                    on_release: app.open_file()
+
+                FloatLayout:
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    size_hint_y: None
+                    height: dp(app.height) * 0.7
+                    size_hint_x: None
+                    width: dp(app.width) * app.scrollPart * 0.4 * 0.8
+                    padding: '10dp'
+                    canvas.before:
+                        Color:
+                            rgba: 1, 0.745, 0, 0.7
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+
+                    MDTextField:
+                        size_hint_x: None
+                        width: dp(app.width) * app.scrollPart * 0.4 * 0.78
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+                        hint_text: "Найти техника"
+                        on_text: app.set_technic_list_left(self.text, True)
+
+                    MDScrollView:
+                        pos_hint: {'center_x': 0.5, 'y': 0}
+                        size_hint_y: None
+                        height: dp(app.height) * 0.63
+                        MDList:
+                            id: container_all
+                            divider_color: [1, 0.745, 0, 0.7]
+
+
+
+            FloatLayout:
+                size_hint_x: None
+                width: dp(app.width) * app.scrollPart * 0.2
+
+                MDRaisedButton:
+                    text: "Добавить"
+                    size_hint_x: None
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+                    on_release: app.add_employees_to_display()
+
+                MDRaisedButton:
+                    text: "Удалить"
+                    size_hint_x: None
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    on_release: app.delete_employees()
+
+                MDRaisedButton:
+                    text: "Добавить всех"
+                    size_hint_x: None
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    on_release: app.scroll_view_add_everyone(app.list_employees_to_show_left)
+
+                MDRaisedButton:
+                    text: "Удалить всех"
+                    size_hint_x: None
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                    on_release: app.scroll_view_delete_everyone()
+
+
+            FloatLayout:
+                padding: dp(app.width) * app.scrollPart * 0.4 * 0.1
+                size_hint_x: None
+                width: dp(app.width) * app.scrollPart * 0.4
+
+                MDRaisedButton:
+                    text: app.group_button_text
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+                    on_release: app.preset_list.open()
+                    id: button_choose_group
+
+                FloatLayout:
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    size_hint_y: None
+                    height: dp(app.height) * 0.7
+                    size_hint_x: None
+                    width: dp(app.width) * app.scrollPart * 0.4 * 0.8
+                    padding: '10dp'
+                    canvas.before:
+                        Color:
+                            rgba: 1, 0.745, 0, 0.7
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+
+                    MDTextField:
+                        size_hint_x: None
+                        width: dp(app.width) * app.scrollPart * 0.4 * 0.78
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+                        hint_text: "Найти техника"
+                        on_text: app.set_technic_list_right(self.text, True)
+
+
+                    MDScrollView:
+                        pos_hint: {'center_x': 0.5, 'y': 0}
+                        size_hint_y: None
+                        height: dp(app.height) * 0.63
+                        MDList:
+                            id: container_to_add
+                            divider_color: [1, 0.745, 0, 0.7]
+
+                FloatLayout:
+
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                    MDIconButton:
+                        icon: "check"
+                        theme_icon_color: "Custom"
+                        icon_color: app.theme_cls.primary_color
+                        pos_hint: {'center_x': 0.3, 'center_y': 0.11}
+                        on_release: app.open_popup_check()
+
+                    MDIconButton:
+                        icon: "delete"
+                        theme_icon_color: "Custom"
+                        icon_color: app.theme_cls.primary_color
+                        pos_hint: {'center_x': 0.7, 'center_y': 0.11}
+                        on_release: app.open_popup_delete()
+
+
+        FloatLayout:
+            size_hint_y: None
+            height: dp(app.height)
+            size_hint_x: None
+            width: dp(app.width) * app.buttonPart
+
+            canvas.before:
+                Color:
+                    rgba: 1, 0.745, 0, 1
+                Rectangle:
+                    size: self.width * 0.4, self.height * 0.113
+                    pos: dp(700), dp(440)
+                Triangle:
+                    points: [dp(700), dp(440), dp(785), dp(440), dp(742.5), dp(400)]
+                Line:
+                    width: 4
+                    points: [dp(690), dp(512.15), dp(795), dp(512.15), dp(795), dp(435), dp(742.5), dp(385), dp(690), dp(435), dp(690), dp(512.15)]
+
+
+
+
+            MDRaisedButton:
+                pos_hint: {'center_x': 0.5, 'center_y': 0.63}
+                id: button
+                text: app.dropdown_text
+                on_release: app.menu.open()
+
+            MDFloatingActionButton:
+                pos_hint: {'center_x': 0.5, 'center_y': 0.52}
+                icon: "calendar"
+                on_release: app.show_date_picker()
+
+            MDLabel:
+                halign: "center"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                text: app.dates_label
+                color: [0, 0, 0]
+
+            Check:
+                active: not(app.check_box_value)
+                pos_hint: {'center_x': 0.10, 'center_y': 0.3}
+                on_active: app.on_checkbox_active_left(*args)
+
+            MDLabel:
+                text: "Упрощённый отчёт"
+                pos_hint: {'center_x': 0.70, 'center_y': 0.3}
+
+            Check:
+                active: app.check_box_value
+                pos_hint: {'center_x': .10, 'center_y': 0.23}
+                on_active: app.on_checkbox_active_right(*args)
+
+            MDLabel:
+                text: "Полный отчёт"
+                pos_hint: {'center_x': 0.70, 'center_y': 0.23}
+
+            MDRaisedButton:
+                pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+                text: "Создать отчёт"
+                on_release: app.write_file()
+
+
+
+<Content>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "60dp"
+
+    MDTextField:
+        hint_text: "Название"
+        text: app.preset_name
+        on_text: app.save_preset_name(self.text)
